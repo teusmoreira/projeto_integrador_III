@@ -13,19 +13,22 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
-
-# 1. Pega a pasta onde utils.py está (Dashboard)
+# 1. Pega a pasta onde o utils.py está localizado
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# 2. Volta uma pasta ("..") e entra na pasta correta onde estão os CSVs
-PASTA_DADOS = os.path.abspath(
-    os.path.join(
-        BASE_DIR, 
-        "..", 
-        "Geracao de dados e analise de sentimentos", 
-        "output_csv"
-    )
-)
+# 2. Como os arquivos estão soltos na mesma pasta, a PASTA_DADOS é o próprio BASE_DIR
+PASTA_DADOS = BASE_DIR
+
+# Semente fixa
+SEMENTE_SIMULACAO = 42
+
+
+def _ler_csv(nome_arquivo):
+    # Vai procurar o arquivo diretamente na mesma pasta do utils.py
+    caminho = os.path.join(PASTA_DADOS, nome_arquivo)
+
+    # Abre o arquivo com a codificação correta
+    return pd.read_csv(caminho, encoding="utf-8-sig")
 
 # Semente fixa: garante que os dados simulados sejam sempre os mesmos a cada execucao
 SEMENTE_SIMULACAO = 42
